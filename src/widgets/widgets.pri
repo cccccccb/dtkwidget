@@ -114,7 +114,9 @@ HEADERS += $$PWD/dslider.h\
     $$PWD/dtoolbutton.h \
     $$PWD/dsearchcombobox.h \
     $$PWD/dprintpreviewwidget.h \
-    $$PWD/dprintpickcolorwidget.h
+    $$PWD/dprintpickcolorwidget.h \
+    $$PWD/dprintpreviewsettinginterface.h \
+    $$PWD/dprintpreviewsettinginfo.h
 
 SOURCES += $$PWD/dslider.cpp \
     $$PWD/dbackgroundgroup.cpp \
@@ -199,7 +201,8 @@ SOURCES += $$PWD/dslider.cpp \
     $$PWD/dtoolbutton.cpp \
     $$PWD/dsearchcombobox.cpp \
     $$PWD/dprintpreviewwidget.cpp \
-    $$PWD/dprintpickcolorwidget.cpp
+    $$PWD/dprintpickcolorwidget.cpp \
+    $$PWD/dprintpreviewsettinginfo.cpp
 
 RESOURCES += \
     $$PWD/icons.qrc \
@@ -362,4 +365,6 @@ includes.files += \
     $$PWD/DAlertControl \
     $$PWD/DSearchComboBox \
     $$PWD/DPrintPreviewDialog \
-    $$PWD/DFileChooserEdit
+    $$PWD/DFileChooserEdit \
+    $$PWD/DPrintPreviewSettingInfo \
+    $$PWD/DPrintPreviewSettingInterface \
