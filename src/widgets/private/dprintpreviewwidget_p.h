@@ -165,6 +165,10 @@ public:
     {
         color = c;
     }
+    inline QColor getColor() const
+    {
+        return color;
+    }
     inline void setBoundingRect(const QRectF &rect)
     {
         qreal rotate = rotation();

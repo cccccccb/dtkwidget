@@ -1723,6 +1723,22 @@ void DPrintPreviewWidget::setWaterMarkFont(const QFont &font)
 }
 
 /*!
+  \brief 获取文字水印的颜色。
+
+  \return 文字水印的颜色
+ */
+QColor DPrintPreviewWidget::waterMarkColor() const
+{
+    Q_D(const DPrintPreviewWidget);
+
+    if (imposition() == DPrintPreviewWidget::One) {
+        return d->waterMark->getColor();
+    } else {
+        return d->numberUpPrintData->waterProperty->color;
+    }
+}
+
+/*!
   \brief 设置文字水印的颜色。
   
   \a color 文字水印的颜色

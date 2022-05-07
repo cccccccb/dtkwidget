@@ -119,6 +119,7 @@ public:
     void setCustomWaterMark(const QString &text);
     void setTextWaterMark(const QString &text);
     void setWaterMarkFont(const QFont &font);
+    QColor waterMarkColor() const;
     void setWaterMarkColor(const QColor &color);
     void setWaterMarkLayout(int layout);
     void setImposition(Imposition im);

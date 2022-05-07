@@ -22,6 +22,8 @@
 #ifndef DPRINTPREVIEWDIALOG_P_H
 #define DPRINTPREVIEWDIALOG_P_H
 
+#include "dprintpreviewsettinginterface.h"
+
 #include <DPrintPreviewDialog>
 #include "ddialog_p.h"
 #include <dprintpickcolorwidget.h>
@@ -51,6 +53,7 @@ class DDoubleSpinBox;
 class DSlider;
 class DBackgroundGroup;
 class DToolButton;
+class PreviewSettingsPluginHelper;
 class DPrintPreviewDialogPrivate : public DDialogPrivate
 {
 public:
@@ -91,6 +94,10 @@ public:
     void tipSelected(TipsNum tipNum);
     QVector<int> checkDuplication(QVector<int> data);
 
+    void updateSubControlSettings(DPrintPreviewSettingInfo::SettingType setting, int subtype = -1);
+    void updateAllControlSettings();
+    void updateAllControlStatus();
+
     void setEnable(const int &value, DComboBox *combox); //控件可用
     void setTurnPageBtnStatus();
     void watermarkTypeChoosed(int index);
@@ -98,6 +105,8 @@ public:
     void waterMarkBtnClicked(bool isClicked);
     void disablePrintSettings();
     void setPageLayoutEnable(const bool &checked);
+    void matchFitablePageSize();
+    bool isActualPrinter(const QString &name);
 
     void _q_printerChanged(int index);
     void _q_pageRangeChanged(int index);
@@ -200,7 +209,36 @@ public:
     DWidget *inorderwdg = nullptr;
     DPrintPickColorWidget *pickColorWidget = nullptr;
     QHash<QWidget *, QString> spinboxTextCaches;
+    QVariant m_printSettingData;
+    PreviewSettingsPluginHelper *settingHelper;
     Q_DECLARE_PUBLIC(DPrintPreviewDialog)
+};
+
+class PreviewSettingsPluginHelper
+{
+public:
+    PreviewSettingsPluginHelper(DPrintPreviewDialogPrivate *dd);
+    DPrintPreviewSettingInfo *loadInfo(DPrintPreviewSettingInfo::SettingType type, int subType = -1);
+
+    void setSubControlVisible(DPrintPreviewSettingInterface::SettingSubControl subControlType, bool visible);
+    void setSubControlEnabled(DPrintPreviewSettingInterface::SettingSubControl subControlType, bool enabled);
+
+    void updateSettingInfo(DPrintPreviewSettingInfo *info);
+    void updateSettingStatus(DPrintPreviewSettingInterface::SettingSubControl subControlType);
+
+    static void loadPlugin();
+    static QStringList availablePlugins();
+    static bool setCurrentPlugin(const QString &pluginName);
+
+protected:
+    void doUpdateStatus(QWidget *source, DPrintPreviewSettingInterface::SettingSubControl subControlType, bool visible, bool enabled);
+    QWidgetList subControl(DPrintPreviewSettingInterface::SettingSubControl subControlType) const;
+    static QString pluginPath();
+
+private:
+    DPrintPreviewDialogPrivate *d;
+    static DPrintPreviewSettingInterface *m_currentInterface;
+    static QList<DPrintPreviewSettingInterface *> m_availablePlugins;
 };
 
 DWIDGET_END_NAMESPACE

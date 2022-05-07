@@ -34,6 +34,9 @@ public:
     explicit DPrintPreviewDialog(QWidget *parent = nullptr);
     ~DPrintPreviewDialog() override;
 
+    static QStringList availablePlugins();
+    static bool setCurrentPlugin(const QString &pluginName);
+
 Q_SIGNALS:
     void paintRequested(DPrinter *printer);
     void paintRequested(DPrinter *printer, const QVector<int> &pageRange);
